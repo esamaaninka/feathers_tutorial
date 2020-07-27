@@ -1,0 +1,30 @@
+GET http://localhost:3030/contacts/
+
+###
+
+POST http://localhost:3030/contacts
+Content-Type: application/json
+
+{
+  "name": {
+    "first": "Jack",
+    "last": "Bauer"
+  },
+  "email": "jack@ctu.mail",
+  "phone": "+1234567"
+}
+
+###
+// Miksi ei nyt onnistu kopioida rest kutsun Response -ikkunasta arvoja? Pitää
+// kopsata POSTMANista ...
+
+PATCH http://localhost:3030/contacts/tP8sHjelKlNjlksd
+Content-Type: application/json
+
+{
+     "email": "jack.bauer@gmail.com"
+}
+
+###
+DELETE http://localhost:3030/contacts/UkfPEYH9MpjMHlDA
+
