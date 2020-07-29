@@ -1,30 +1,51 @@
-GET http://localhost:3030/contacts/
 
+@authToken = {{login.response.body.accessToken}}
 ###
 
+@idLastAddedContact = {{post.response.body._id}}
+
+### LOGIN / Get Local/JWT  token
+# @name login
+POST http://localhost:3030/authentication
+Content-Type: application/json
+
+{
+  "strategy": "local",
+  "email": "admin@example.com",
+  "password": "admin"
+}
+
+###
+GET http://localhost:3030/contacts/
+Content-Type: application/json
+Authorization: {{authToken}}
+###
+# @name post
 POST http://localhost:3030/contacts
 Content-Type: application/json
+Authorization: {{authToken}}
 
 {
   "name": {
-    "first": "Jack",
+    "first": "Jake",
     "last": "Bauer"
   },
-  "email": "jack@ctu.mail",
-  "phone": "+1234567"
+  "email": "jake@bfi.mail",
+  "phone": "+12345679"
 }
 
 ###
-// Miksi ei nyt onnistu kopioida rest kutsun Response -ikkunasta arvoja? Pitää
-// kopsata POSTMANista ...
 
-PATCH http://localhost:3030/contacts/tP8sHjelKlNjlksd
+PATCH http://localhost:3030/contacts/{{idLastAddedContact}}
 Content-Type: application/json
+Authorization: {{authToken}}
 
 {
-     "email": "jack.bauer@gmail.com"
+     "email": "jack.russel@gmail.com"
 }
 
 ###
-DELETE http://localhost:3030/contacts/UkfPEYH9MpjMHlDA
+// jostain syystä palauttaa virheen ettei löydä, mutta kannassa näkyy deletoituna
+DELETE http://localhost:3030/contacts/{{idLastAddedContact}}
+Authorization: {{authToken}}
 

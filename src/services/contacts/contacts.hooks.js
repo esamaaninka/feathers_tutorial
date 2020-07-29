@@ -1,19 +1,23 @@
 
 const { authenticate } = require('@feathersjs/authentication').hooks;
 
+const processContact = require('../../hooks/process-contact');
+
+const populateUser = require('../../hooks/populate-user');
+
 module.exports = {
   before: {
-    all: [authenticate('jwt')],
+    all: [authenticate('jwt')], // miksi ei toimi ilman authenticationa ?
     find: [],
     get: [],
-    create: [],
+    create: [processContact()],
     update: [],
-    patch: [],
+    patch: [processContact()],
     remove: []
   },
 
   after: {
-    all: [],
+    all: [populateUser()],
     find: [],
     get: [],
     create: [],

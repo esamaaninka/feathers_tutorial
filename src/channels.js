@@ -1,6 +1,7 @@
 module.exports = function(app) {
   if(typeof app.channel !== 'function') {
     // If no real-time functionality has been configured just return
+    console.log('tullaanko tähän? ')
     return;
   }
 
@@ -12,10 +13,11 @@ module.exports = function(app) {
   app.on('login', (authResult, { connection }) => {
     // connection can be undefined if there is no
     // real-time connection, e.g. when logging in via REST
+
     if(connection) {
       // Obtain the logged in user from the connection
       // const user = connection.user;
-      
+      console.log('tullaanko tähän2 ? ')
       // The connection is no longer anonymous, remove it
       app.channel('anonymous').leave(connection);
 

@@ -5,10 +5,21 @@ const {
 } = require('@feathersjs/authentication-local').hooks;
 
 module.exports = {
+/*
   before: {
     all: [],
-    find: [ authenticate('jwt') ],
-    get: [ authenticate('jwt') ],
+    find: [],
+    get: [],
+    create: [], // tuo auth aiheutta sen että vain auth käyttäjä voi lisätä uusia
+    update: [],
+    patch: [],
+    remove: [],
+  },
+*/
+  before: {
+    all: [],
+    find: [authenticate('jwt') ], // Tämä ilmeisesti GET ? koska ao ei vaikuta
+    get: [authenticate('jwt') ],
     create: [ hashPassword('password') , authenticate('jwt')], // tuo auth aiheutta sen että vain auth käyttäjä voi lisätä uusia
     update: [ hashPassword('password'),  authenticate('jwt') ],
     patch: [ hashPassword('password'),  authenticate('jwt') ],

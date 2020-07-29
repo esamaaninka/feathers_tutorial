@@ -1,5 +1,20 @@
-// luotava ensin tuo joku/admin käyttäjä ja sitten login jälkeen kopsata tuo token
+// 
+@authToken = {{login.response.body.accessToken}}
+###
+@idLastAddedUser = {{post.response.body._id}}
+ 
+### LOGIN / Get Local/JWT  token
+# @name login
+POST http://localhost:3030/authentication
+Content-Type: application/json
 
+{
+  "strategy": "local",
+  "email": "admin@example.com",
+  "password": "admin"
+}
+
+###
 GET http://localhost:3030/users 
 Authorization: {{authToken}}
 
@@ -12,32 +27,24 @@ Authorization: {{authToken}}
 ###
 POST http://localhost:3030/users 
 Content-Type: application/json
+Authorization: {{authToken}}
 
 {
-    "email": "admin@example.com",
-    "password": "admin"
+    "email": "admin1234@example.com",
+    "password": "admin1234"
 }
 
-### LOGIN / Get JWT token
-POST http://localhost:3030/authentication
-Content-Type: application/json
-
-{
-  "strategy": "local",
-  "email": "admin@example.com",
-  "password": "admin"
-}
-
-// jostain syystä ei RESPONSE ikkunasta saa kopioitua, pitää POSTMANista kopsata
-// MIKSI EI TARVI BEARER sanaa edessä ?
-@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyJ9.eyJpYXQiOjE1OTU4NDMxODksImV4cCI6MTU5NTkyOTU4OSwiYXVkIjoiaHR0cHM6Ly95b3VyZG9tYWluLmNvbSIsImlzcyI6ImZlYXRoZXJzIiwic3ViIjoiM3ZxWEU5b25pVmhtVDhOUyIsImp0aSI6ImNhMGE4MzQ0LTk0YjctNDI2ZC05MjBmLWQ3YmUzNzc0YTM0NyJ9.2dD8EnNh5rzoJQ0vijPngGY2M12i6R9y5KZiZhs_aGU
-
-### 
+###
+# @name post
 POST http://localhost:3030/users 
 Content-Type: application/json
 Authorization: {{authToken}}
 
 {
-     "email": "user2@example.com",
-    "password": "user2"
+     "email": "user8@example.com",
+    "password": "user8"
 }
+
+###
+DELETE http://localhost:3030/users/{{idLastAddedUser}}
+Authorization: {{authToken}}
