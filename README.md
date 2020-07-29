@@ -1,4 +1,5 @@
-# feathers-koe https://www.sitepoint.com/feathers-js-guide/
+# feathers tutorial https://www.sitepoint.com/feathers-js-guide/
+basics of feathers, authentication, hooks
 
 > 
 
